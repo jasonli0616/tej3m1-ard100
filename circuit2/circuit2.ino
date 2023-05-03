@@ -43,7 +43,7 @@ void fillFromSideAnimation() {
 
 void loadingAnimation() {
   const int ANIMATION_DELAY = 100;
-  const int LED_BLOCK_AMOUNT = 5;
+  const int LED_BLOCK_AMOUNT = 3;
 
   int firstLEDBlock = 0;
   int cycle = 0;
