@@ -7,8 +7,6 @@ const int POTENTIOMETER_MAX_VALUE = 1023;
 void setup() {
   // put your setup code here, to run once:
 
-  Serial.begin(9600);
-
   for (int i = 0; i < AMOUNT_OF_LEDS; i++) {
     pinMode(LED_PINS[i], OUTPUT);
   }
@@ -21,8 +19,6 @@ void loop() {
   int potentiometerValue = analogRead(POTENTIOMETER_PIN);
 
   int onLEDs = (potentiometerValue / (double) POTENTIOMETER_MAX_VALUE) * AMOUNT_OF_LEDS;
-
-  Serial.println(onLEDs);
 
   for (int i = 0; i < AMOUNT_OF_LEDS; i++) {
     if (i < onLEDs)
