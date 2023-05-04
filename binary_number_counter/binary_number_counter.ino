@@ -14,6 +14,8 @@ const int D2_PIN = 11
 const int D3_PIN = 10;
 const int D0_PIN = 9;
 
+int buttonPressCount = 0;
+
 
 void setup() {
 
@@ -26,6 +28,19 @@ void setup() {
 }
 
 void loop() {
-  
+  updateButtonPressCount();
 
+}
+
+/**
+ * Update the button press count periodically.
+ * Ensure the max is 9, then go back to 0.
+ */
+void updateButtonPressCount() {
+  
+  if (digitalRead(BTN_PIN) == HIGH) {
+    // Max is 9, then go back to 0
+    if (++buttonPressCount >= 10)
+      buttonPressCount = 0;
+  }
 }
