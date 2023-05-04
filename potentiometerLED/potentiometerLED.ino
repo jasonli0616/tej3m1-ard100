@@ -21,10 +21,17 @@ void loop() {
   int onLEDs = (potentiometerValue / (double) POTENTIOMETER_MAX_VALUE) * AMOUNT_OF_LEDS;
 
   for (int i = 0; i < AMOUNT_OF_LEDS; i++) {
-    if (i < onLEDs)
+    if (i < onLEDs) {
       digitalWrite(LED_PINS[i], HIGH);
+      delay(100);
+    }
     else
      digitalWrite(LED_PINS[i], LOW);
   }
+  delay(100);
+  for (int i = 0; i < AMOUNT_OF_LEDS; i++) {
+    digitalWrite(LED_PINS[i], LOW);
+  }
+  delay(300);
 
 }
