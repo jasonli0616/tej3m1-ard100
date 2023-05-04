@@ -8,6 +8,10 @@
 
 const int BTN_PIN = 13;
 
+const int LED1_PIN = 2;
+const int LED2_PIN = 3;
+const int LED3_PIN = 4;
+const int LED4_PIN = 5;
 
 const int D1_PIN = 12;
 const int D2_PIN = 11;
@@ -28,6 +32,10 @@ void setup() {
   pinMode(D2_PIN, OUTPUT);
   pinMode(D3_PIN, OUTPUT);
   pinMode(D0_PIN, OUTPUT);
+  pinMode(LED1_PIN, OUTPUT);
+  pinMode(LED2_PIN, OUTPUT);
+  pinMode(LED3_PIN, OUTPUT);
+  pinMode(LED4_PIN, OUTPUT);
 
 }
 
