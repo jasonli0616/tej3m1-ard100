@@ -10,14 +10,18 @@ const int BTN_PIN = 13;
 
 
 const int D1_PIN = 12;
-const int D2_PIN = 11
+const int D2_PIN = 11;
 const int D3_PIN = 10;
 const int D0_PIN = 9;
 
+bool buttonIsPressed = false;
 int buttonPressCount = 0;
+int buttonPressCountBinary[4];
 
 
 void setup() {
+
+  Serial.begin(9600);
 
   pinMode(BTN_PIN, INPUT);
   pinMode(D1_PIN, OUTPUT);
@@ -29,6 +33,34 @@ void setup() {
 
 void loop() {
   updateButtonPressCount();
+  convertBase10ToBinary();
+
+  Serial.print(buttonPressCount);
+  Serial.print(" ");
+  Serial.print(buttonPressCountBinary[0]);
+  Serial.print(buttonPressCountBinary[1]);
+  Serial.print(buttonPressCountBinary[2]);
+  Serial.print(buttonPressCountBinary[3]);
+  Serial.print("\n");
+
+}
+
+/**
+ * Take base 10 int buttonPressCount,
+ * and put it to buttonPressCountBinary
+ * as a four digit binary number.
+ */
+void convertBase10ToBinary() {
+  int i = 0;
+  int decimalNumber = buttonPressCount;
+
+  while (decimalNumber > 0) {
+    buttonPressCountBinary[i] = decimalNumber % 2;
+    decimalNumber /= 2;
+    i++;
+  }
+
+  // TODO: Reverse array
 
 }
 
@@ -38,9 +70,12 @@ void loop() {
  */
 void updateButtonPressCount() {
   
-  if (digitalRead(BTN_PIN) == HIGH) {
+  if (digitalRead(BTN_PIN) == HIGH && !buttonIsPressed) {
     // Max is 9, then go back to 0
     if (++buttonPressCount >= 10)
       buttonPressCount = 0;
+    buttonIsPressed = true;
+  } else if (digitalRead(BTN_PIN) == LOW) {
+    buttonIsPressed = false;
   }
 }
