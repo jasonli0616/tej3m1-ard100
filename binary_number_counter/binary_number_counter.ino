@@ -22,7 +22,7 @@
 // Digital pins
 const int BUTTON_PIN = 13; // Pushbutton pin
 const int LED_PINS[] = {2, 3, 4, 5}; // LED pins
-const int IC_PINS[] = {12, 11, 10, 9}; // 4511 IC pins; D1, D2, D3, D0
+const int IC_PINS[] = {10, 11, 12, 9}; // 4511 IC pins; D3, D2, D1, D0
 
 
 // Size of array, and digits of binary number
@@ -44,7 +44,7 @@ int buttonPressCountBinary[4];
 void setup() {
 
   // Set pin mode
-  pinMode(BTN_PIN, INPUT);
+  pinMode(BUTTON_PIN, INPUT);
   for (int i = 0; i < BINARY_AMOUNT_OF_DIGITS; i++) {
     pinMode(IC_PINS[i], OUTPUT);
     pinMode(LED_PINS[i], OUTPUT);
@@ -103,7 +103,7 @@ void convertBase10ToBinary() {
  */
 void updateButtonPressCount() {
 
-  int buttonRead = digitalRead(BTN_PIN);
+  int buttonRead = digitalRead(BUTTON_PIN);
   
   if (buttonRead == HIGH && !buttonIsPressed) {
     // Max is 9, then go back to 0
