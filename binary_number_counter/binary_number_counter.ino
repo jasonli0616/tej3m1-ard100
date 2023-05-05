@@ -44,6 +44,18 @@ void loop() {
   updateButtonPressCount();
   convertBase10ToBinary();
 
+  digitalWriteBinaryToComponents();
+
+}
+
+/**
+ * Write binary to LED and IC.
+ */
+void digitalWriteBinaryToComponents() {
+  for (int i = 0; i < BINARY_AMOUNT_OF_DIGITS; i++) {
+    digitalWrite(IC_PINS[i], buttonPressCountBinary[i]);
+    digitalWrite(LED_PINS[i], buttonPressCountBinary[i]);
+  }
 }
 
 /**
