@@ -102,13 +102,16 @@ void convertBase10ToBinary() {
  * Ensure the max is 9, then go back to 0.
  */
 void updateButtonPressCount() {
+
+  int buttonRead = digitalRead(BTN_PIN);
   
-  if (digitalRead(BTN_PIN) == HIGH && !buttonIsPressed) {
+  if (buttonRead == HIGH && !buttonIsPressed) {
     // Max is 9, then go back to 0
     if (++buttonPressCount >= 10)
       buttonPressCount = 0;
     buttonIsPressed = true;
-  } else if (digitalRead(BTN_PIN) == LOW) {
+    
+  } else if (buttonRead == LOW) {
     // Button is not pressed
     buttonIsPressed = false;
   }
