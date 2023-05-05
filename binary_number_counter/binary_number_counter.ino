@@ -12,11 +12,13 @@ const int LED1_PIN = 2;
 const int LED2_PIN = 3;
 const int LED3_PIN = 4;
 const int LED4_PIN = 5;
+const int LED_PINS[] = {LED1_PIN, LED2_PIN, LED3_PIN, LED4_PIN};
 
 const int D1_PIN = 12;
 const int D2_PIN = 11;
 const int D3_PIN = 10;
 const int D0_PIN = 9;
+const int IC_PINS[] = {D1_PIN, D2_PIN, D3_PIN, D0_PIN};
 
 const int BINARY_AMOUNT_OF_DIGITS = 4;
 
@@ -30,14 +32,11 @@ void setup() {
   Serial.begin(9600);
 
   pinMode(BTN_PIN, INPUT);
-  pinMode(D1_PIN, OUTPUT);
-  pinMode(D2_PIN, OUTPUT);
-  pinMode(D3_PIN, OUTPUT);
-  pinMode(D0_PIN, OUTPUT);
-  pinMode(LED1_PIN, OUTPUT);
-  pinMode(LED2_PIN, OUTPUT);
-  pinMode(LED3_PIN, OUTPUT);
-  pinMode(LED4_PIN, OUTPUT);
+
+  for (int i = 0; i < BINARY_AMOUNT_OF_DIGITS; i++) {
+    pinMode(IC_PINS[i], OUTPUT);
+    pinMode(LED_PINS[i], OUTPUT);
+  }
 
 }
 
