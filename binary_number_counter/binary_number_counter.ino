@@ -18,6 +18,8 @@ const int D2_PIN = 11;
 const int D3_PIN = 10;
 const int D0_PIN = 9;
 
+const int BINARY_AMOUNT_OF_DIGITS = 4;
+
 bool buttonIsPressed = false;
 int buttonPressCount = 0;
 int buttonPressCountBinary[4];
@@ -43,14 +45,6 @@ void loop() {
   updateButtonPressCount();
   convertBase10ToBinary();
 
-  Serial.print(buttonPressCount);
-  Serial.print(" ");
-  Serial.print(buttonPressCountBinary[0]);
-  Serial.print(buttonPressCountBinary[1]);
-  Serial.print(buttonPressCountBinary[2]);
-  Serial.print(buttonPressCountBinary[3]);
-  Serial.print("\n");
-
 }
 
 /**
@@ -59,16 +53,11 @@ void loop() {
  * as a four digit binary number.
  */
 void convertBase10ToBinary() {
-  int i = 0;
-  int decimalNumber = buttonPressCount;
 
-  while (decimalNumber > 0) {
-    buttonPressCountBinary[i] = decimalNumber % 2;
-    decimalNumber /= 2;
-    i++;
+  // Convert to array of binary digits
+  for (int i = 0; i < BINARY_AMOUNT_OF_DIGITS; ++i) {
+    buttonPressCountBinary[BINARY_AMOUNT_OF_DIGITS-i-1] = (buttonPressCount >> i) & 1;
   }
-
-  // TODO: Reverse array
 
 }
 
