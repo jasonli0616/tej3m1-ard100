@@ -1,38 +1,50 @@
 /**
- * Binary number counter.
+ * Arduino Binary Counter
+ * TEJ3M1-02
+ *
+ * Objective:
+ * Create a circuit using your Arduino that counts from 0 to 9 as you press
+ * the push button. The Arduino should display the current count value in
+ * 4-bit binary (using the 4 LEDs), as well as displaying the correct number
+ * on the 7-segment display. When the count increases beyond 9, have the count
+ * reset back to 0.
+ *
+ * Assignment outline:
+ * https://docs.google.com/document/d/1pkNXHHZ0pdCSnCbuD3DuEeFPS5_wGoCx0zS-g1uBUGI/edit?usp=sharing
  * 
  * @author Jason Li
  * @author Omair Khan
+ * @date 2023-05-04
+ * @version 1.0.0
  */
 
 
-const int BTN_PIN = 13;
+// Digital pins
+const int BUTTON_PIN = 13; // Pushbutton pin
+const int LED_PINS[] = {2, 3, 4, 5}; // LED pins
+const int IC_PINS[] = {12, 11, 10, 9}; // 4511 IC pins; D1, D2, D3, D0
 
-const int LED1_PIN = 2;
-const int LED2_PIN = 3;
-const int LED3_PIN = 4;
-const int LED4_PIN = 5;
-const int LED_PINS[] = {LED1_PIN, LED2_PIN, LED3_PIN, LED4_PIN};
 
-const int D1_PIN = 12;
-const int D2_PIN = 11;
-const int D3_PIN = 10;
-const int D0_PIN = 9;
-const int IC_PINS[] = {D1_PIN, D2_PIN, D3_PIN, D0_PIN};
-
+// Size of array, and digits of binary number
 const int BINARY_AMOUNT_OF_DIGITS = 4;
 
+
+// Button state
 bool buttonIsPressed = false;
 int buttonPressCount = 0;
 int buttonPressCountBinary[4];
 
 
+
+/**
+ * Setup the program.
+ *
+ * Set the pin mode of all pins.
+ */
 void setup() {
 
-  Serial.begin(9600);
-
+  // Set pin mode
   pinMode(BTN_PIN, INPUT);
-
   for (int i = 0; i < BINARY_AMOUNT_OF_DIGITS; i++) {
     pinMode(IC_PINS[i], OUTPUT);
     pinMode(LED_PINS[i], OUTPUT);
@@ -40,6 +52,14 @@ void setup() {
 
 }
 
+
+/**
+ * Periodic loop for the program.
+ *
+ * This will handle all user input from the
+ * pushbutton, and update the 7-segment display
+ * and the LEDs accordingly.
+ */
 void loop() {
   updateButtonPressCount();
   convertBase10ToBinary();
@@ -47,6 +67,7 @@ void loop() {
   digitalWriteBinaryToComponents();
 
 }
+
 
 /**
  * Write binary to LED and IC.
@@ -57,6 +78,7 @@ void digitalWriteBinaryToComponents() {
     digitalWrite(LED_PINS[i], buttonPressCountBinary[i]);
   }
 }
+
 
 /**
  * Take base 10 int buttonPressCount,
@@ -72,7 +94,10 @@ void convertBase10ToBinary() {
 
 }
 
+
 /**
+ * Handle counting with button presses.
+ *
  * Update the button press count periodically.
  * Ensure the max is 9, then go back to 0.
  */
@@ -84,6 +109,7 @@ void updateButtonPressCount() {
       buttonPressCount = 0;
     buttonIsPressed = true;
   } else if (digitalRead(BTN_PIN) == LOW) {
+    // Button is not pressed
     buttonIsPressed = false;
   }
 }
