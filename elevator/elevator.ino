@@ -9,7 +9,7 @@
 
 double stepsPerRevolution = 2048;
 
-Stepper Stepper(stepsPerRevolution, 8, 10, 9, 11);  // Pin inversion to make the library work
+Stepper Stepper(stepsPerRevolution, 5, 6, 9, 10);  // Pin inversion to make the library work
 
 void setup() {
 
