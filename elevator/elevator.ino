@@ -7,20 +7,18 @@
 
 #include <Stepper.h>
 
-double stepsPerRevolution = 2048;
+double stepsPerRevolution = 32;
 
-Stepper Stepper(stepsPerRevolution, 5, 6, 9, 10);  // Pin inversion to make the library work
+Stepper myStepper = Stepper(stepsPerRevolution, 3, 4, 5, 6);  // Pin inversion to make the library work
 
 void setup() {
-
-  Stepper.setSpeed(10);
+  myStepper.setSpeed(100);
   Serial.begin(9600);
 
-  }
-void loop() {
+}
 
-  // rotation counterclockwise 
-  Stepper.step(stepsPerRevolution);
+void loop() {
+  myStepper.step(stepsPerRevolution);
   delay(1000);
 
 
