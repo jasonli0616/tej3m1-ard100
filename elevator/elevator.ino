@@ -7,20 +7,22 @@
 
 #include <Stepper.h>
 
+const int UP_BTN = 13;
+const int DOWN_BTN = 12;
+
 const int stepsPerRevolution = 2038;
 
-Stepper myStepper = Stepper(stepsPerRevolution, 8, 10, 9, 11);  // Pin inversion to make the library work
+Stepper myStepper = Stepper(stepsPerRevolution, 5, 6, 10, 11);
 
 void setup() {
   // Serial.begin(9600);
-  myStepper.setSpeed(50);
+  myStepper.setSpeed(10);
 }
 
 void loop() {
-  myStepper.step(stepsPerRevolution);
-  delay(1000);
-  myStepper.step(-stepsPerRevolution);
-  delay(1000);
-
+  if (digitalRead(UP_BTN) == HIGH)
+    myStepper.step(1);
+  else if (digitalRead(DOWN_BTN) == HIGH)
+    myStepper.step(-1);
 
 }
