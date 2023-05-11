@@ -7,22 +7,25 @@
 
 #include <Stepper.h>
 
-const int UP_BTN = 13;
-const int DOWN_BTN = 12;
+const int FLOOR_1_BTN = 8;
+const int FLOOR_2_BTN = 9;
+const int FLOOR_3_BTN = 12;
+const int FLOOR_4_BTN = 13;
 
-const int stepsPerRevolution = 2038;
+const int STEPS_PER_REVOLUTION = 200;
 
-Stepper myStepper = Stepper(stepsPerRevolution, 5, 6, 10, 11);
+Stepper myStepper = Stepper(STEPS_PER_REVOLUTION, 5, 6, 10, 11);
+
+// Elevator state
+int currentFloor = 4; // start at fourth floor
+const int TOTAL_FLOORS = 4;
 
 void setup() {
   // Serial.begin(9600);
-  myStepper.setSpeed(10);
+  myStepper.setSpeed(200);
 }
 
 void loop() {
-  if (digitalRead(UP_BTN) == HIGH)
-    myStepper.step(1);
-  else if (digitalRead(DOWN_BTN) == HIGH)
-    myStepper.step(-1);
+  myStepper.step(STEPS_PER_REVOLUTION);
 
 }
