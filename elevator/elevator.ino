@@ -14,8 +14,6 @@ const int FLOOR_3_BTN = 4;
 const int FLOOR_4_BTN = 5;
 
 const int STEPS_PER_REVOLUTION = 512;
-const int MOVE_FOUR_FLOORS = 1250;
-const int MOVE_ONE_FLOOR = MOVE_FOUR_FLOORS / 4;
 
 // LiquidCrystal lcd = new LiquidCrystal(/* pins */);
 
@@ -31,7 +29,7 @@ bool buttonPressed = false;
 
 void setup() {
   Serial.begin(9600);
-  myStepper.setSpeed(120);
+  myStepper.setSpeed(80);
   
   // lcd.begin(16, 2);
  
@@ -60,16 +58,13 @@ void loop() {
 
     // Move to floor
     int moves = targetFloor - currentFloor;
-    Serial.println(moves);
-    myStepper.step(MOVE_ONE_FLOOR * moves);
+    myStepper.step(STEPS_PER_REVOLUTION * 4 * moves);
 
     currentFloor = targetFloor;
 
   } else if (buttonPressed && targetFloor == 0) {
     buttonPressed = false;
   }
-  
-  // Move to floor
 
   // lcd.setCursor(0, 1);
   // lcd.print(currentFloor);
