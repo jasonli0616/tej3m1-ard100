@@ -15,9 +15,11 @@ const int FLOOR_4_BTN = 5;
 
 const int STEPS_PER_REVOLUTION = 512;
 
-// LiquidCrystal lcd = new LiquidCrystal(/* pins */);
+LiquidCrystal lcd = LiquidCrystal(0, 1, 10, 11, 12, 13);
+const int CONTRAST_PIN = A5;
+int contrast = 10;
 
-Stepper myStepper = Stepper(STEPS_PER_REVOLUTION, 6, 9, 7, 10); // 1, 3, 2, 4
+Stepper myStepper = Stepper(STEPS_PER_REVOLUTION, 6, 8, 7, 9); // 1, 3, 2, 4
 
 // Elevator state
 int currentFloor = 1; // start at fourth floor
@@ -30,16 +32,16 @@ bool buttonPressed = false;
 void setup() {
   Serial.begin(9600);
   myStepper.setSpeed(80);
+
+  pinMode(CONTRAST_PIN, OUTPUT);
+  analogWrite(CONTRAST_PIN, contrast);
   
-  // lcd.begin(16, 2);
+  lcd.begin(16, 2);
+  lcd.print("ELEVATOR");
  
 }
 
 void loop() {
-
-  // lcd.setCursor(0, 0);
-  // lcd.print("ELEVATOR");
-  // lcd.setCursor(0, 1);
 
   // Get floor input
   int targetFloor = 0;
