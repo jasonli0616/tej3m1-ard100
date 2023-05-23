@@ -15,11 +15,10 @@ const int FLOOR_4_BTN = 5;
 
 const int STEPS_PER_REVOLUTION = 512;
 
-LiquidCrystal lcd = LiquidCrystal(0, 1, 10, 11, 12, 13);
-const int CONTRAST_PIN = A5;
-int contrast = 10;
+const int rs = 0, en = 1, d4 = 10, d5 = 11, d6 = 12, d7 = 13;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-Stepper myStepper = Stepper(STEPS_PER_REVOLUTION, 6, 8, 7, 9); // 1, 3, 2, 4
+Stepper myStepper = Stepper(STEPS_PER_REVOLUTION, 6, 8, 7, A0); // 1, 3, 2, 4
 
 // Elevator state
 int currentFloor = 1; // start at fourth floor
@@ -30,14 +29,10 @@ const int ONE_FLOOR_FACTOR = 1;
 bool buttonPressed = false;
 
 void setup() {
-  Serial.begin(9600);
   myStepper.setSpeed(80);
-
-  pinMode(CONTRAST_PIN, OUTPUT);
-  analogWrite(CONTRAST_PIN, contrast);
   
   lcd.begin(16, 2);
-  lcd.print("ELEVATOR");
+  lcd.print("Elevator ready");
  
 }
 
@@ -59,6 +54,7 @@ void loop() {
     buttonPressed = true;
 
     // Move to floor
+    elevatorMoving(targetFloor);
     int moves = targetFloor - currentFloor;
     myStepper.step(STEPS_PER_REVOLUTION * 4 * moves);
 
@@ -66,9 +62,17 @@ void loop() {
 
   } else if (buttonPressed && targetFloor == 0) {
     buttonPressed = false;
+    lcdSuccess();
   }
 
-  // lcd.setCursor(0, 1);
-  // lcd.print(currentFloor);
+}
 
+void elevatorMoving(int targetFloor) {
+  lcd.clear();
+  lcd.print("Moving to: " + targetFloor);
+}
+
+void lcdSuccess() {
+  lcd.clear();
+  lcd.print("Current floor: " + currentFloor);
 }
