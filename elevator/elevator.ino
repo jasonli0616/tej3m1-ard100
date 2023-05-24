@@ -69,10 +69,12 @@ void loop() {
 
 void elevatorMoving(int targetFloor) {
   lcd.clear();
-  lcd.print("Moving to: " + targetFloor);
+  lcd.print("Moving to: ");
+  lcd.print(targetFloor);
 }
 
 void lcdSuccess() {
   lcd.clear();
-  lcd.print("Current floor: " + currentFloor);
+  lcd.print("Current floor: ");
+  lcd.print(currentFloor);
 }
