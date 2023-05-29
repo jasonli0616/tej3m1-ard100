@@ -32,10 +32,8 @@ void loop() {
   // photoresistorInput2 = analogRead(PHOTORESISTOR_PIN_2);
   photoresistorInput3 = analogRead(PHOTORESISTOR_PIN_3) / 100;
 
-  Serial.print(photoresistorInput1);
-  Serial.print(" ");
-  Serial.print(photoresistorInput3);
-  Serial.print("\n");
+  int spinAmount = (photoresistorInput1 - photoresistorInput3);
+  spinDistance(spinAmount);
 }
 
 /**
@@ -43,10 +41,12 @@ void loop() {
  * representing the distance.
  */
 void spinDistance(int distance) {
+  Serial.println(distance);
+
   int directionFactor = (distance < 0) ? -1 : 1;
   servo.write(90 + (VELOCITY * directionFactor));
 
-  delay(distance);
+  delay(abs(distance) * 100);
   servo.write(90);
 
   servoPosition += distance;
