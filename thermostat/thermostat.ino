@@ -1,15 +1,21 @@
-#define TMP36_PIN A0 // TMP36
+#include <Servo.h>
+
+#define TMP36_PIN A0
 #define LED_R_PIN A1
 #define LED_G_PIN A3
 #define LED_B_PIN A2
 
-#define COOL_MOTOR 3
-#define HEAT_MOTOR 2
+#define COOL_MOTOR 12
+#define HEAT_MOTOR 11
+
+#define SERVO_PIN 2
 
 #define LED_OFF 0
 #define LED_MAX 255
 
 const int TEMPERATURE_COMFORTABLE_RANGE[] = {20, 23}; // {min, max}
+
+Servo servo;
 
 // variables
 float temperature;
@@ -27,6 +33,8 @@ void setup() {
   
   pinMode(COOL_MOTOR, OUTPUT);
   pinMode(HEAT_MOTOR, OUTPUT);
+
+  servo.attach(SERVO_PIN);
 
 }
 
@@ -46,12 +54,18 @@ void determineMotorOutput() {
   if (state == 1) {
     digitalWrite(COOL_MOTOR, LOW);
     digitalWrite(HEAT_MOTOR, HIGH);
+
+    servo.write(80);
   } else if (state == 2) {
     digitalWrite(COOL_MOTOR, HIGH);
     digitalWrite(HEAT_MOTOR, LOW);
+
+    servo.write(100);
   } else {
     digitalWrite(COOL_MOTOR, LOW);
     digitalWrite(HEAT_MOTOR, LOW);
+
+    servo.write(90);
   }
 }
 
