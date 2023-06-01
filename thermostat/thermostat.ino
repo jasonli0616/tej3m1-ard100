@@ -55,12 +55,12 @@ void determineMotorOutput() {
     digitalWrite(COOL_MOTOR, LOW);
     digitalWrite(HEAT_MOTOR, HIGH);
 
-    servo.write(80);
+    servo.write(120);
   } else if (state == 2) {
     digitalWrite(COOL_MOTOR, HIGH);
     digitalWrite(HEAT_MOTOR, LOW);
 
-    servo.write(100);
+    servo.write(70);
   } else {
     digitalWrite(COOL_MOTOR, LOW);
     digitalWrite(HEAT_MOTOR, LOW);
